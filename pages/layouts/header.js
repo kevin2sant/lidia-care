@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { authClose } from '../actions/loginAction';
+import { authClose } from '../../actions/loginAction';
 
 const pages = ['Usuarios'];
 

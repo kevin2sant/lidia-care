@@ -5,6 +5,7 @@ import {
     AUTH_CLOSE
 } from '../types'
 
+import React from 'react' 
 // axios
 import clientAxios from '../config/axios'
 

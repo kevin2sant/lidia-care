@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 // action redux
 import { useDispatch, useSelector } from 'react-redux'
-import { validateAuth } from './actions/loginAction';
+import { validateAuth } from '../actions/loginAction';
 
 const Login = () => {
     const loading = useSelector( state => state.login.loading)
