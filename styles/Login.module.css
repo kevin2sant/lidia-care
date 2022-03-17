@@ -1,0 +1,39 @@
+.login_card{
+    text-align: center;
+    margin: 0 auto;
+    margin-top:150px;
+    padding-top: 18px;
+    height: 500px;
+    width: 350px;
+    background-color: white;
+    box-shadow:2px 2px 5px rgb(119, 119, 119);
+    border-radius:5px;
+} 
+
+.input_login{
+    width: 65%;
+    margin-bottom:0px !important;
+    margin-top:20px !important;
+}
+
+.button_login{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.button_bg_login {
+    background-color:#3d4872;
+}
+
+.forgot_passwd{
+    margin-top:30px !important;
+    margin-bottom:20px !important;
+    color:rgb(172, 172, 172);
+}
+  
+.app_logo {
+    width: 150px;
+    height: 150px;
+    pointer-events: none;
+    margin-top:10px;
+  }
