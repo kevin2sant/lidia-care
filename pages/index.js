@@ -11,7 +11,7 @@ export default function Home() {
   
   return(
       <>
-          {auth ? <Body /> : <Login/>}
+          {auth ? <Body /> : <Body/>}
       </>
     )
 }
