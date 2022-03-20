@@ -1,39 +1,38 @@
-import React, {useState} from 'react';
-import styles from '../../styles/Footer.module.css';
-
+import * as React from 'react';
+import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import PersonIcon from '@mui/icons-material/Person';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-const Footer = () => {
-    const [value, setValue] = useState('recents');
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FaceIcon from '@mui/icons-material/Face';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
+// Redux
+import { useDispatch } from 'react-redux';
+import { authClose } from '../../actions/loginAction';
+
+export default function Footer() {
+    const [value, setValue] = React.useState(0);
+
+    const dispatch = useDispatch(); 
+
+    const closeSession = () => {
+        dispatch(authClose())
+    }
     
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    return(
-        <BottomNavigation className={styles.footer} value={value} onChange={handleChange}>
-            <BottomNavigationAction
-                label="Rutas"
-                value="Rutas"
-                icon={<LocationOnIcon />}
-            />
-            
-            <BottomNavigationAction
-                label="Perfil"
-                value="Perfil"
-                icon={<PersonIcon />}
-            />
-            <BottomNavigationAction
-                label="Reporte"
-                value="Reporte"
-                icon={<BarChartIcon />}
-            />
-        </BottomNavigation>
-    )
+    return (
+    <Box sx={{ width: '100%', position :'fixed', bottom : 0 }}>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      >
+        <BottomNavigationAction label="Perfil" icon={<FaceIcon />} />
+        <BottomNavigationAction label="Notificaciones" icon={<NotificationsIcon />} />
+        <BottomNavigationAction label="Salir" icon={<ExitToAppIcon />} onClick={() => closeSession()}/>
+      </BottomNavigation>
+    </Box>
+  );
 }
-
-export default Footer
