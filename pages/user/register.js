@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Body from '../layouts/body'
+import Body from '../../components/layouts/body'
 import styles from '../../styles/User.module.css'
 
 import Button from '@mui/material/Button';
@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const RegisterUser = () => {
     return (
         <>
-            <Body/>
+        <Body>
             <Box sx={{ flexGrow: 1, marginTop :'70px'}}>
                 <Grid container spacing={2}>
                     <Grid item xs={8}>
@@ -45,6 +45,7 @@ const RegisterUser = () => {
                     </Grid>
                 </Grid>
             </Box>
+        </Body>
         </>
     )
 }
