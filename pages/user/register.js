@@ -22,26 +22,20 @@ const RegisterUser = () => {
         <Body>
             <Box sx={{ flexGrow: 1, marginTop :'70px'}}>
                 <Grid container spacing={2}>
-                    <Grid item xs={8}>
-                    <Item>
-                    Cargar Archivo con usuarios<br/><br/>
-                    <TextField
-                        id="user"
-                        className={styles.input_login}
-                        type="file"
-                        name="user"
-                    /><br/><br/>
-                    <Button variant="contained">Cargar Usuarios</Button>
-                    </Item>
+                    <Grid item xs={12} sm={12} md={4} xl={4}>
+                        <Item>
+                        Cargar Archivo con usuarios<br/><br/>
+                        <TextField
+                            id="user"
+                            className={styles.input_login}
+                            type="file"
+                            name="user"
+                        /><br/><br/>
+                        <Button variant="contained">Cargar Usuarios</Button>
+                        </Item>
                     </Grid>
-                    <Grid item xs={4}>
-                    <Item>Lista de Usuarios</Item>
-                    </Grid>
-                    <Grid item xs={4}>
-                    
-                    </Grid>
-                    <Grid item xs={8}>
-                    
+                    <Grid item xs={12} sm={12} md={8} xl={8}>
+                        <Item>Lista de Usuarios</Item>
                     </Grid>
                 </Grid>
             </Box>
