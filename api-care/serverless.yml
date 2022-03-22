@@ -1,0 +1,16 @@
+# serverless.yml
+org: lidiakev
+app: my-express-api-lidia-care
+service: my-express-api-lidia-care
+ 
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+ 
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: '*'
