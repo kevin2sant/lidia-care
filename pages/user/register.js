@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Body from '../../components/layouts/body'
+import Body from '../../components/layouts/body';
+import BasicTable from '../../components/user/tableUser';
 import styles from '../../styles/User.module.css'
 
 import Button from '@mui/material/Button';
@@ -35,7 +36,7 @@ const RegisterUser = () => {
                         </Item>
                     </Grid>
                     <Grid item xs={12} sm={12} md={8} xl={8}>
-                        <Item>Lista de Usuarios</Item>
+                        <BasicTable/>
                     </Grid>
                 </Grid>
             </Box>
