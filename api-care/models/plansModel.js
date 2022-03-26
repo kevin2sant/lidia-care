@@ -4,7 +4,7 @@ const listPlans = async (req,res) => {
 	let query = {
         text: ` SELECT a.*
 				FROM plans a
-                WHERE b_active = 'true'`,
+                WHERE b_active = 'true'`
 
     }
 
@@ -26,6 +26,7 @@ const deactivatePlan = async (req,res) => {
 	let query = {
         text: ` UPDATE plans
 				SET b_active = 'f'
+					d_updated_at = NOW()
 				WHERE i_idplan = $1`,
 		values: [idplan]
 
