@@ -243,7 +243,7 @@ const RegisterUser = () => {
                                     </thead>  
                                     <tbody>
                                     {userAdd.map((value,item) => (
-                                        <tr>
+                                        <tr key={item}>
                                             <td key={item}>{value.v_identification}</td>
                                             <td key={item}>{value.status}</td>
                                         </tr>
