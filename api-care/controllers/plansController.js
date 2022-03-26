@@ -89,8 +89,32 @@ const planAdd= async (req,res) => {
 }
 
 
+const plansCompanyList = async (req,res) => {
+	try{
+	    let response = await PlansModel.listPlansCompany(req.body,res)
+		if (response.rowCount >0){ 
+			res.json({
+				response
+			}) 
+		}else{
+			res.status(200).json({
+				code : 15,
+				type : "error",
+				message : 'La compañia no tiene planes asignados',			
+			})
+		}
+	}catch (err){
+	    res.status(500).send({
+            code : 12,
+	      	message : 'Aplication error'
+	    })
+	}
+}
+
+
 module.exports = {
 	plansList,
 	planDeactivate,
-	planAdd
+	planAdd,
+	plansCompanyList
 }

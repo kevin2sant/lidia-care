@@ -93,9 +93,38 @@ const addPlan = async (req,res) => {
     })
 }
 
+const listPlansCompany = async (req,res) => {
+	const {idcompany} = req
+
+	let query = {
+        text: ` SELECT a.i_idcompany, 
+						a.i_idplan, 
+						b.v_plan, 
+						b.b_active as b_active_plan, 
+						c.v_plan_interval  
+				FROM company_plan a
+				INNER JOIN plans b ON a.i_idplan = b.i_idplan
+				INNER JOIN plan_interval c on b.i_idplan_interval = c.i_idplan_interval
+				WHERE a.i_idcompany = $1`,
+		values : [idcompany]
+
+    }
+
+    return pool()
+    .query(query)
+    .then(response => response)
+    .catch(error => {
+		// console.log(error)
+    	res.status(500).send({
+   	      	message : 'Ocurrio un error'
+		})
+	})
+}
+
 
 module.exports = {
 	listPlans,
 	deactivatePlan,
-	addPlan
+	addPlan,
+	listPlansCompany
 }

@@ -4,6 +4,7 @@ const plan    	= require('../controllers/plansController')
 const route 	= express.Router()
 // HTTP GET
 route.get('/plansList', plan.plansList)
+route.get('/plansCompanyList', plan.plansCompanyList)
 
 // HTTP POST
 route.post('/planAdd', plan.planAdd)
