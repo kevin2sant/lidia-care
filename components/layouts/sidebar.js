@@ -134,6 +134,12 @@ export default function Sidebar() {
               </ListItemIcon>
               <ListItemText primary='Usuarios' />
             </ListItem>
+            <ListItem button key='Compañias' onClick={() => router.push('/company/register')}>
+              <ListItemIcon>
+                <GroupIcon />
+              </ListItemIcon>
+              <ListItemText primary='Compañias' />
+            </ListItem>
         </List>
         <Divider />
         
