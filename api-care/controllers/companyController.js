@@ -45,13 +45,13 @@ const companyDeactivate =  async (req, res) => {
 const companyAdd= async (req,res) => {
 	
 	const {v_company, v_rut_empresa} = req.body
-	const companyData = {v_company : v_company, v_rut_empresa : v_rut_empresa}
+	const companyData = {v_company : v_company, v_company_code : v_company_code}
     let responseSearch = await companyModel.searchCompany(companyData,res)
     if(responseSearch.rowCount > 0){
         res.status(200).json({
             code : 15,
             type : "error",
-            message : 'Rut empresa ya existe'	
+            message : 'Codigo de empresa ya existe'	
         })
     }else {
         try{

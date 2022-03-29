@@ -10,7 +10,6 @@ const listCompany = async (req,res) => {
     .query(query)
     .then(response => response)
     .catch(error => {
-		// console.log(error)
     	res.status(500).send({
    	      	message : 'Ocurrio un error'
 		})
@@ -34,7 +33,6 @@ const deactivateCompany = async (req,res) => {
     .query(query)
     .then(response => response)
     .catch(error => {
-		// console.log(error)
     	res.status(500).send({
    	      	message : 'Ocurrio un error'
 		})
@@ -42,17 +40,16 @@ const deactivateCompany = async (req,res) => {
 }
 
 const addCompany = async (req,res) => {
-	const {v_company, v_rut_empresa} = req
+	const {v_company, v_company_code} = req
 
 	let query = {
 		text: ` INSERT INTO companies(
                     v_company,
-                    v_rut_empresa)
+                    v_company_code)
                 VALUES (
                 	$1,$2
                 ) RETURNING i_idcompany`,
-
-	    values: [v_company, v_rut_empresa]
+	    values: [v_company, v_company_code]
 	}
 	return pool()
     .query(query)
@@ -66,14 +63,14 @@ const addCompany = async (req,res) => {
 }
 
 const searchCompany = async (req,res) => {
-	const {v_rut_empresa} = req
+	const {v_company_code} = req
 
 	let query = {
 		text: `SELECT a.*
                FROM companies a
-               WHERE trim(v_rut_empresa) = trim($1)`,
+               WHERE trim(v_company_code) = trim($1)`,
  
-	    values: [v_rut_empresa]
+	    values: [v_company_code]
 	}
 	return pool()
     .query(query)
