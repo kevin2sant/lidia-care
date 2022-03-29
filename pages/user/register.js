@@ -29,6 +29,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+// agregar los alert comom un componente
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -83,6 +84,9 @@ const RegisterUser = () => {
         .then(res => {
             setCompany(res.data.data.company)
             setPlan(res.data.data.plan)
+        })
+        .catch(res => {
+
         })
     }, [])
     
@@ -171,13 +175,15 @@ const RegisterUser = () => {
                 type : 'error',
                 message : 'HUBO UN ERROR AL INGRESAR LOS DATOS'
             })
+            handleClick()
             setLoading(false)
         })
     };
 
     return (
         <>
-        <Body>
+        <Body
+            title="Usuarios">
             <Box sx={{ flexGrow: 1, marginTop :'70px'}}>
                 <Grid container spacing={2}>
                     

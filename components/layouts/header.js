@@ -19,10 +19,6 @@ import { authClose } from '../../actions/loginAction';
 
 const pages = ['Usuarios'];
 
-
-import { useRouter } from 'next/router'
-
-
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);

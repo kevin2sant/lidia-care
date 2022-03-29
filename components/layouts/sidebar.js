@@ -67,8 +67,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Sidebar() {
-
+export default function Sidebar(props) {
+    const {title} = props 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -100,7 +100,7 @@ export default function Sidebar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Lidia - Care
+            Lidia - {title}
           </Typography>
         </Toolbar>
       </AppBar>
