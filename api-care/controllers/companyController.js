@@ -44,7 +44,7 @@ const companyDeactivate =  async (req, res) => {
 
 const companyAdd= async (req,res) => {
 	
-	const {v_company, v_rut_empresa} = req.body
+	const {v_company, v_company_code} = req.body
 	const companyData = {v_company : v_company, v_company_code : v_company_code}
     let responseSearch = await companyModel.searchCompany(companyData,res)
     if(responseSearch.rowCount > 0){
@@ -61,7 +61,7 @@ const companyAdd= async (req,res) => {
                     code : 16,
                     type : "success",
                     message : 'Se agrego la compañia',	
-                    idplan : response.rows[0].i_idcompany		
+                    idcompany : response.rows[0].i_idcompany		
                 })
             }else{
                 return response
