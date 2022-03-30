@@ -136,3 +136,7 @@ a {
 .input_width{
   width: 100%;
 }
+
+.padding-button{
+  padding : 18px !important
+}

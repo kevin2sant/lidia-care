@@ -8,7 +8,8 @@ import Paper from '@mui/material/Paper';
 import styles from '../../styles/User.module.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import clientAxios from '../../config/axios';
-import MuiAlert from '@mui/material/Alert';
+import { Button } from '@mui/material';
+import AlertShow from '../../components/alert'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,11 +17,9 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-// agregar los alert comom un componente 
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
+import { useDispatch } from 'react-redux'
+import { openAlert, closeAlert } from '../../actions/snackBarAction';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,13 +28,15 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Register = () => {
+    const dispatch = useDispatch();
+
     useEffect(()=>{
         clientAxios.get('care/company/companyList')
         .then(res => {
             setCompanyList(res.data.data.response)
         })
         .catch(res => {
-            setError({
+            setAlert({
                 type : 'error',
                 message : 'HUBO UN ERROR AL INGRESAR LOS DATOS'
             })
@@ -43,29 +44,14 @@ const Register = () => {
         })
     }, [])
 
-    const [open, setOpen] = useState(false);
     const [companyList, setCompanyList] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     const [dataForm,setDataForm] = useState({
         company : '',
         identification : ''
     })
-
-    const handleClick = () => {
-        setOpen(true);
-    };
     
-    const [error, setError] = useState({
-        type : '',
-        message : ''
-    })
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setOpen(false);
-    };
 
     const setForm = (e) => {
         setDataForm({
@@ -74,13 +60,56 @@ const Register = () => {
         })
     }
 
+    
+    
+    const handleOnSubmit = (e) => {
+        
+        e.preventDefault()
+
+        
+        if(!dataForm.company){
+            dispatch(openAlert({type : 'error', message : 'DEBE INGRESAR LA COMPAÑIA'}))
+            
+            return false
+        }    
+
+        if(!dataForm.identification){
+            dispatch(openAlert({type : 'error', message : 'DEBE INGRESAR EL ID DE LA COMPAÑIA'}))
+            return false
+        }    
+
+        setLoading(true)
+
+        clientAxios.post('care/company/companyAdd',dataForm)
+        .then(res => {
+            if(res.data.type == 'success'){
+                dispatch(openAlert({type : 'success', message :  `COMPAÑIA AGREGADA CON ID : ${res.data.data.id}`}))
+                
+                setCompanyList(res.data.data.companies)
+
+                setDataForm({
+                    company : '',
+                    identification : ''
+                })
+            }else{
+                dispatch(openAlert({type : 'warning', message :  `ID DE EMPRESA YA SE ENCUENTRA REGISTRADO`}))
+            }
+            setLoading(false)
+        })
+        .catch(res =>{
+            dispatch(openAlert({type : 'error', message :  `OCURRIO UN ERROR NO SE PUSO AGREGAR LA COMPAÑIA`}))     
+            setLoading(false)
+        })
+        
+    }
+
     return(
         <Body
         title='Compañia'>
             <Box sx={{ flexGrow: 1, marginTop :'70px'}}>
                 <Grid container spacing={2}>
                     
-                    <Grid item xs={12} sm={12} md={6} xl={6}>
+                    <Grid item xs={12} sm={12} md={4} xl={4}>
                         <Item>
                             <TextField
                                 label="Nombre de la Compañia" 
@@ -95,7 +124,7 @@ const Register = () => {
                         </Item>
                     </Grid>
 
-                    <Grid item xs={12} sm={12} md={6} xl={6}>
+                    <Grid item xs={12} sm={12} md={4} xl={4}>
                         <Item>
                             <TextField
                                 label="Identificacion de la Compañia" 
@@ -110,6 +139,15 @@ const Register = () => {
                         </Item>
                     </Grid>
 
+                    <Grid item xs={12} sm={12} md={4} xl={4}>
+                        <Item className="padding-button">
+                        {loading ? 
+                            <center><CircularProgress /></center>
+                        : 
+                            <Button className="btn btn-block btn-primary" onClick={(e) => { handleOnSubmit(e) }} variant="contained">Registrar Compañia</Button>
+                        }
+                        </Item>
+                    </Grid>
                     <Grid item xs={12} sm={12} md={12} xl={12}>
                         <Item>
                         {companyList ? ( 
@@ -141,6 +179,7 @@ const Register = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <AlertShow/>
         </Body>
     )
 } 

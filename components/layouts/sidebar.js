@@ -19,6 +19,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import GroupIcon from '@mui/icons-material/Group';
 import { useRouter } from 'next/router'
+import StoreIcon from '@mui/icons-material/Store';
 
 const drawerWidth = 240;
 
@@ -136,7 +137,7 @@ export default function Sidebar(props) {
             </ListItem>
             <ListItem button key='Compañias' onClick={() => router.push('/company/register')}>
               <ListItemIcon>
-                <GroupIcon />
+                <StoreIcon />
               </ListItemIcon>
               <ListItemText primary='Compañias' />
             </ListItem>

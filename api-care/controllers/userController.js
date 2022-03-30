@@ -1,25 +1,17 @@
-const UserModel =  require('../models/userModel')
+const userModel =  require('../models/userModel')
 const jwt 		=  require('jsonwebtoken')
 const CryptoJS 	=  require('crypto-js')
 
-const userRegister = async (req,res,next) => {
-	
-	const {user, email, password, profile, name, lastname, rut} = req.body
-	console.log({ user, email, password, profile, name, lastname, rut } )
-	// Encrypt password
-	const encryptPassword = CryptoJS.AES.encrypt(password, 'l1d14;2022').toString();
-
-	const userData = {user: user, email : email, password : encryptPassword, profile : profile, name: name, lastname: lastname, rut: rut}
+const usersRegister = async (req,res,next) => {
 	
 	try{
-	    var response = await UserModel.searchUser(userData,res)
-	    if (response.rowCount == 0){
-	    	var insert = await UserModel.register(userData,res)
-			
-			return insert.rows[0].iduser
-	    }else{
-	    	return response
-	    }
+		const usersRegister = await userModel.usersRegister(req.body,res)
+		console.log(req.body)
+	    res.status(200).send({
+	    	code : 3,
+	      	type : 'success',
+	      	data : usersRegister
+	    })
 	}catch (e){
 		console.log(e)
 	    res.status(500).send({
@@ -35,7 +27,7 @@ const userLogin = async(req,res,next) => {
 	
 	try{
 		
-		var login = await UserModel.searchUser(req.body,res)
+		var login = await userModel.searchUser(req.body,res)
 
 		if(login.rowCount > 0){
 			// Decrypt password
@@ -89,7 +81,7 @@ const validateJwt = (req, res) => {
 const updatePassword =  async (req, res) => {
     const {user, password, passwordUpdate} = req.body
     try {
-		var login = await UserModel.searchUserbyid(req.body,res)
+		var login = await userModel.searchUserbyid(req.body,res)
 		
 		const bytes  = CryptoJS.AES.decrypt(login.rows[0].password, 'l1d14;2022');
 		const originalText = bytes.toString(CryptoJS.enc.Utf8);
@@ -107,7 +99,7 @@ const updatePassword =  async (req, res) => {
 		else if(login.rowCount > 0 && originalText == password){
 		
 		req.body.passwordUpdate = encryptPasswordUpdate
-		const response = await UserModel.updatePassword(req ,res)
+		const response = await userModel.updatePassword(req ,res)
 			res.status(200).json({
 				code : 128,
 				type : "success",
@@ -129,14 +121,14 @@ const resetPassword =  async (req, res) => {
     const {user} = req.body
 	const password = 'flock'
     try {
-		var login = await UserModel.searchUserbyid(req.body,res)
+		var login = await userModel.searchUserbyid(req.body,res)
 
 		
 		const encryptPasswordUpdate = CryptoJS.AES.encrypt(password, 'l1d14;2022').toString();
 		
 		if(login.rowCount > 0){
 			req.body.passwordUpdate = encryptPasswordUpdate
-		const response = await UserModel.updatePassword(req ,res)
+		const response = await userModel.updatePassword(req ,res)
 			res.status(200).json({
 				code : 128,
 				type : "success",
@@ -161,7 +153,7 @@ const userTest = (req,res) => {
 }
 
 module.exports = {
-	userRegister,
+	usersRegister,
 	userLogin,
 	validateJwt,
 	updatePassword,

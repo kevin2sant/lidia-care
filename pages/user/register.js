@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Body from '../../components/layouts/body';
-import BasicTable from '../../components/user/tableUser';
 import styles from '../../styles/User.module.css';
 import clientAxios from '../../config/axios';
 import Button from '@mui/material/Button';
@@ -16,9 +15,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import MuiAlert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
 
+import AlertShow from '../../components/alert'
 
 // tabla
 import Table from '@mui/material/Table';
@@ -29,10 +27,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-// agregar los alert comom un componente
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import { useDispatch } from 'react-redux'
+import { openAlert, closeAlert } from '../../actions/snackBarAction';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -41,6 +37,8 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 const RegisterUser = () => {
+    const dispatch = useDispatch();
+    
     const [dataForm, setDataForm] = useState({
         company : '',
         plan : '',
@@ -53,23 +51,10 @@ const RegisterUser = () => {
 
     const [userAdd, setUserAdd] = useState(false)
 
-    const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     const [plan, setPlan] = useState('')
     const [company, setCompany] = useState('')
     const [loading, setLoading] = useState(false)
-    
-    const handleClick = () => {
-        setOpen(true);
-    };
-    
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setOpen(false);
-    };
     
     const setForm = (event) => {
         setDataForm({
@@ -86,7 +71,7 @@ const RegisterUser = () => {
             setPlan(res.data.data.plan)
         })
         .catch(res => {
-
+            dispatch(openAlert({type : 'error', message :  `ERROR AL TRAER LA DATA`}))
         })
     }, [])
     
@@ -100,7 +85,7 @@ const RegisterUser = () => {
                 users : fileContents 
             })
         }catch(err){
-            console.log(err)
+            dispatch(openAlert({type : 'error', message :  `ERROR EN EL ARCHIVO`}))
         }
     };
 
@@ -123,38 +108,23 @@ const RegisterUser = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         setUserAdd(false)
-        setError({
-            type : '',
-            message : ''
-        })
         
         if(!dataForm.company){
-            setError({
-                type : 'error',
-                message : 'DEBE SELECCIONAR UNA COMPAÑIA'
-            })
-            handleClick()
+            dispatch(openAlert({type : 'error', message :  `DEBE SELECCIONAR UNA COMPAÑIA`}))
+
             return false
         }    
         
         if(!dataForm.plan){
-            setError({
-                type : 'error',
-                message : 'DEBE SELECCIONAR EL PLAN'
-            })
+            dispatch(openAlert({type : 'error', message : 'DEBE SELECCIONAR EL PLAN'}))
             
-            handleClick()
             return false
         }    
 
         if (!dataForm.users) {
             
-            setError({
-                type : 'error',
-                message : 'DEBE SELECCIONAR EL ARCHIVO'
-            })
-
-            handleClick()
+            dispatch(openAlert({type : 'error', message : 'DEBE SELECCIONAR EL ARCHIVO'}))
+           
             return false
         }
 
@@ -162,20 +132,13 @@ const RegisterUser = () => {
         clientAxios.post('care/user/usersRegister', dataForm)
         .then(res => {
             setUserAdd(res.data.data)
-            setError({
-                type : 'success',
-                message : 'LOS DATOS SE REGISTRARON CORRECTAMENTE'
-            })
-            handleClick()
+            dispatch(openAlert({type : 'success', message : 'LOS DATOS SE REGISTRARON CORRECTAMENTE'}))
+        
             setLoading(false)
         })
         .catch(err => {
-            console.log(err)
-            setError({
-                type : 'error',
-                message : 'HUBO UN ERROR AL INGRESAR LOS DATOS'
-            })
-            handleClick()
+            dispatch(openAlert({type : 'error', message : 'HUBO UN ERROR AL INGRESAR LOS DATOS'}))
+
             setLoading(false)
         })
     };
@@ -286,13 +249,8 @@ const RegisterUser = () => {
                     )}
                 </Grid>
             </Box>
+            <AlertShow />
         </Body>
-
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity={error.type} sx={{ width: '100%' }}>
-                {error.message}
-            </Alert>
-        </Snackbar>
         </>
     )
 }
