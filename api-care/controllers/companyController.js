@@ -1,10 +1,36 @@
 const companyModel =  require('../models/companyModel')
+const jwt 		=  require('jsonwebtoken')
+const CryptoJS 	=  require('crypto-js')
+
+const getDataRegister = async (req,res) => {
+	try{
+		const getActiveCompany = await companyModel.getActiveCompany(req,res)
+		const getActivePlan = await companyModel.getActivePlan(req,res)
+
+		res.status(200).json({
+			data : {
+				company : getActiveCompany,
+				plan : getActivePlan
+			},
+			message : 'success'
+		})
+	}catch(error){
+		console.log(error)
+		res.status(400).json({
+			error : error
+		})
+	}
+}
 
 const companyList = async (req,res) => {
 	try{
 	    let response = await companyModel.listCompany(req.body,res)
+		
 		res.json({
-			response
+			type : 'success',
+			data : {
+				response
+			}
 		}) 
 	}catch (err){
 	    res.status(500).send({
@@ -17,7 +43,7 @@ const companyList = async (req,res) => {
 
 const companyDeactivate =  async (req, res) => {
     try {
-		let response = await companyModel.deactivateCompany(req ,res)
+		let response = await companyModel.deactivateCompany(req.body ,res)
 		if (response.rowCount >0){ 
 			res.status(200).json({
 				code : 13,
@@ -42,26 +68,31 @@ const companyDeactivate =  async (req, res) => {
     }
 }
 
-const companyAdd= async (req,res) => {
+const companyAdd = async (req,res) => {
 	
-	const {v_company, v_company_code} = req.body
-	const companyData = {v_company : v_company, v_company_code : v_company_code}
-    let responseSearch = await companyModel.searchCompany(companyData,res)
+    let responseSearch = await companyModel.searchCompany(req.body,res)
+    
     if(responseSearch.rowCount > 0){
         res.status(200).json({
             code : 15,
             type : "error",
-            message : 'Codigo de empresa ya existe'	
+            message : 'Rut empresa ya existe'	
         })
     }else {
         try{
-            let response = await companyModel.addCompany(companyData,res)
+            let response = await companyModel.addCompany(req.body,res)
+
+            let companies = await companyModel.listCompany(req.body,res)
+
             if (response.rowCount > 0){
                 res.status(200).json({
                     code : 16,
                     type : "success",
                     message : 'Se agrego la compañia',	
-                    idcompany : response.rows[0].i_idcompany		
+                    data : {
+                    	id : response.rows[0].i_idcompany,	
+                    	companies : companies
+                    }	
                 })
             }else{
                 return response
@@ -80,6 +111,7 @@ const companyAdd= async (req,res) => {
 
 
 module.exports = {
+	getDataRegister,
 	companyList,
     companyDeactivate,
     companyAdd

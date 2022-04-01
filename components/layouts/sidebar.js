@@ -19,6 +19,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import GroupIcon from '@mui/icons-material/Group';
 import { useRouter } from 'next/router'
+import StoreIcon from '@mui/icons-material/Store';
 
 const drawerWidth = 240;
 
@@ -67,8 +68,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Sidebar() {
-
+export default function Sidebar(props) {
+    const {title} = props 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -100,7 +101,7 @@ export default function Sidebar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Lidia - Care
+            Lidia - {title}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -133,6 +134,12 @@ export default function Sidebar() {
                 <GroupIcon />
               </ListItemIcon>
               <ListItemText primary='Usuarios' />
+            </ListItem>
+            <ListItem button key='Compañias' onClick={() => router.push('/company/register')}>
+              <ListItemIcon>
+                <StoreIcon />
+              </ListItemIcon>
+              <ListItemText primary='Compañias' />
             </ListItem>
         </List>
         <Divider />

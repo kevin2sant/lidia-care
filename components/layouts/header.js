@@ -19,10 +19,6 @@ import { authClose } from '../../actions/loginAction';
 
 const pages = ['Usuarios'];
 
-
-import { useRouter } from 'next/router'
-
-
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -59,7 +55,6 @@ const Header = () => {
               component="div"
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
             >
-              <Image src="/logo2_care.png" width={60} height={60} className={styles.app_logo}/>
             </Typography>
   
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -104,7 +99,6 @@ const Header = () => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
             >
-              <Image src="/logo2_care.png" width={50} height={50} className={styles.app_logo}/>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (

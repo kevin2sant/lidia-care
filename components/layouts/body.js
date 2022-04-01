@@ -5,7 +5,9 @@ import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Login from '../../pages/login'
 
+
 const Body = props => {
+    const {title} = props
     const router = useRouter();
 
     const auth = useSelector( state => state.login.auth)
@@ -14,7 +16,9 @@ const Body = props => {
     if(auth){
         return (
             <>
-                <Sidebar/>
+                <Sidebar 
+                    title={props.title}
+                />
                 {props.children}
                 <Footer/>
             </>

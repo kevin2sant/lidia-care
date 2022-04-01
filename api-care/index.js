@@ -7,9 +7,7 @@ const bodyParser  = require('body-parser')
 
 const app   = express();
 const user  =  require('./routes/userRoute')
-const plans  =  require('./routes/plansRoute')
 const company = require('./routes/companyRoute')
-
 //app.use(notFoundMiddleware)
 app.set('port', process.env.PORT || 3001);
 
@@ -26,9 +24,7 @@ app.use(cors())
 
 // url
 app.use('/care/user', user)
-app.use('/care/plans', plans)
 app.use('/care/company', company)
-
 
 
 app.listen(app.get('port'), () => {

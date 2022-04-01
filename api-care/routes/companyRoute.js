@@ -2,13 +2,12 @@ const express 	= require('express')
 const company    	= require('../controllers/companyController')
 
 const route 	= express.Router()
-// HTTP GET
+
+// GET
+route.get('/getDataRegister', company.getDataRegister)
 route.get('/companyList', company.companyList)
 
-// HTTP POST
+// POST
 route.post('/companyAdd', company.companyAdd)
-
-// HTTP PUT
-route.put('/companyDeactivate', company.companyDeactivate)
 
 module.exports = route

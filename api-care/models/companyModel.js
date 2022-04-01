@@ -1,15 +1,55 @@
 const pool = require('./connectModel')
 
+const getActiveCompany = async (req,res) => {
+	let query = {
+		text : `SELECT *
+				FROM companies
+				WHERE b_active IS TRUE;`,
+		values : []
+	}
+
+	return pool()
+	.query(query)
+	.then(res => res.rows)
+	.catch(res => {
+		console.log(res)
+		res.status(400).json({
+			error : res
+		})
+	})
+}
+
+const getActivePlan = async (req,res) => {
+	let query = {
+		text : `SELECT *
+				FROM plans
+				WHERE b_active IS TRUE;`,
+		values : []
+	}
+
+	return pool()
+	.query(query)
+	.then(res => res.rows)
+	.catch(res => {
+		console.log(res)
+		res.status(400).json({
+			error : res
+		})
+	})
+}
+
 const listCompany = async (req,res) => {
 	let query = {
         text: ` SELECT a.*
 				FROM companies a
-                WHERE b_active = 'true'`
+                WHERE b_active = 'true'
+                ORDER BY 1 DESC`
     }
     return pool()
     .query(query)
-    .then(response => response)
+    .then(response => response.rows)
     .catch(error => {
+		// console.log(error)
     	res.status(500).send({
    	      	message : 'Ocurrio un error'
 		})
@@ -33,6 +73,7 @@ const deactivateCompany = async (req,res) => {
     .query(query)
     .then(response => response)
     .catch(error => {
+		// console.log(error)
     	res.status(500).send({
    	      	message : 'Ocurrio un error'
 		})
@@ -40,7 +81,6 @@ const deactivateCompany = async (req,res) => {
 }
 
 const addCompany = async (req,res) => {
-	const {v_company, v_company_code} = req
 
 	let query = {
 		text: ` INSERT INTO companies(
@@ -49,7 +89,8 @@ const addCompany = async (req,res) => {
                 VALUES (
                 	$1,$2
                 ) RETURNING i_idcompany`,
-	    values: [v_company, v_company_code]
+
+	    values: [req.company, req.identification]
 	}
 	return pool()
     .query(query)
@@ -63,14 +104,13 @@ const addCompany = async (req,res) => {
 }
 
 const searchCompany = async (req,res) => {
-	const {v_company_code} = req
 
 	let query = {
 		text: `SELECT a.*
                FROM companies a
                WHERE trim(v_company_code) = trim($1)`,
  
-	    values: [v_company_code]
+	    values: [req.identification]
 	}
 	return pool()
     .query(query)
@@ -88,5 +128,7 @@ module.exports = {
 	listCompany,
 	deactivateCompany,
 	addCompany,
-    searchCompany
+    searchCompany,
+    getActiveCompany,
+	getActivePlan
 }

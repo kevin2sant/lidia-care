@@ -128,3 +128,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.btn-block{
+  width: 100%;
+}
+
+.input_width{
+  width: 100%;
+}
+
+.padding-button{
+  padding : 18px !important
+}

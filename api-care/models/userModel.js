@@ -23,23 +23,23 @@ const searchUser = async (req,res) => {
 }
 
 
-const register = async (req,res) => {
-	const {user, email, password, profile, name, lastname, rut} = req
-	console.log({ user, email, password, profile, name, lastname, rut })
+const usersRegister = async (req,res) => {
 
 	let query = {
-		text: ` INSERT INTO users(username,password,email,created_at,iduser_profile, name, lastname, rut)
-                VALUES (
-                	$1,$2,$3, now(), $4, $5, $6, $7
-                ) RETURNING iduser`,
+		text: ` SELECT * 
+				FROM fn_insert_users_json($1,$2,$3)`,
 
-	    values: [user, password, email, profile, name, lastname, rut]
+	    values: [req.users, req.company, req.plan]
 	}
+
+	console.log(query)
+
 	return pool()
     .query(query)
-    .then(response => response
+    .then(response => response.rows
     )
     .catch(error => {
+    	console.log(error)
     	res.status(500).send({
 	      message : 'Ocurrio un error'
 	    })
@@ -73,5 +73,6 @@ const updatePassword = (req,res) => {
 
 
 module.exports = {
-	searchUser
+	searchUser,
+	usersRegister
 }
