@@ -36,11 +36,7 @@ const Register = () => {
             setCompanyList(res.data.data.response)
         })
         .catch(res => {
-            setAlert({
-                type : 'error',
-                message : 'HUBO UN ERROR AL INGRESAR LOS DATOS'
-            })
-            handleClick()
+            dispatch(openAlert({type : 'error', message :  `HUBO UN ERROR AL INGRESAR LOS DATOS`}))
         })
     }, [])
 

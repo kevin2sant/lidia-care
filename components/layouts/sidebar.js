@@ -136,15 +136,12 @@ export default function Sidebar(props) {
               </ListItemIcon>
               <ListItemText primary='Usuarios' />
             </ListItem>
-<<<<<<< HEAD
-=======
             <ListItem button key='Planes' onClick={() => router.push('/plans/register')}>
               <ListItemIcon>
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary='Planes' />
             </ListItem>
->>>>>>> ec78c946e8853e40857c7062961b93b6a317b8c8
             <ListItem button key='Compañias' onClick={() => router.push('/company/register')}>
               <ListItemIcon>
                 <StoreIcon />

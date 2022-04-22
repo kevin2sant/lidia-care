@@ -42,11 +42,7 @@ const Register = () => {
 
         })
         .catch(res => {
-            setAlert({
-                type : 'error',
-                message : 'HUBO UN ERROR AL EXTRAER LOS DATOS'
-            })
-            handleClick()
+            dispatch(openAlert({type : 'error', message : 'HUBO UN ERROR AL EXTRAER LOS DATOS'}))
         })
     }, [])
 
