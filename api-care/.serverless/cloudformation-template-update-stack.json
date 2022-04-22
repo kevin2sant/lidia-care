@@ -207,7 +207,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/my-express-api-lidia-care/dev/1648515308358-2022-03-29T00:55:08.358Z/my-express-api-lidia-care.zip"
+          "S3Key": "serverless/my-express-api-lidia-care/dev/1648643287079-2022-03-30T12:28:07.079Z/my-express-api-lidia-care.zip"
         },
         "Handler": "s_api.handler",
         "Runtime": "nodejs14.x",
@@ -225,14 +225,14 @@
         "ApiLogGroup"
       ]
     },
-    "ApiLambdaVersionCep2wx0uBDjahp9lNYwYLhbs0XYdetSwhSZIbkTV4": {
+    "ApiLambdaVersionbU6NlRFgyEgk2gaKAQQ6QAWXxPqlTuWPsZIwWSGncaw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ApiLambdaFunction"
         },
-        "CodeSha256": "6ttO7fZP/03Tm1A2DMA+8SSSz4T2Lgzp0gI6rf9CWag="
+        "CodeSha256": "HR5pLKBlhf0ECtWCAT4y25gAEXu/XSeAQS3A+B1Ht+g="
       }
     },
     "HttpApi": {
@@ -390,7 +390,7 @@
     "ApiLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ApiLambdaVersionCep2wx0uBDjahp9lNYwYLhbs0XYdetSwhSZIbkTV4"
+        "Ref": "ApiLambdaVersionbU6NlRFgyEgk2gaKAQQ6QAWXxPqlTuWPsZIwWSGncaw"
       },
       "Export": {
         "Name": "sls-my-express-api-lidia-care-dev-ApiLambdaFunctionQualifiedArn"
