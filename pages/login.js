@@ -61,7 +61,7 @@ const Login = () => {
     return(
         <>
         <form onSubmit={authLogin} className={styles.login_card}>
-            <Image src="/logo2_care.png" width={150} height={150} className={styles.app_logo}/>
+            <Image src="/logo2_care.png" width={150} height={150} className={styles.app_logo} alt="Login"/>
 
             {/* <img src='logo.png' className={styles.app_logo} alt="logo" /> */}
             <br /> 

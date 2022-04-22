@@ -12,7 +12,7 @@ class MyDocument extends Document {
 
           <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"></link>
-
+          
           {/* <!-- Metas para el iphone --> */}
           <meta name="theme-color" content="#9BDFE6"/>
           <meta name="mobile-web-app-capable" content="yes" />

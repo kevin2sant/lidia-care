@@ -21,6 +21,11 @@ import GroupIcon from '@mui/icons-material/Group';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useRouter } from 'next/router'
 import StoreIcon from '@mui/icons-material/Store';
+import Collapse from '@mui/material/Collapse';
+import ListItemButton from '@mui/material/ListItemButton';
+import StarBorder from '@mui/icons-material/StarBorder';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 const drawerWidth = 240;
 
@@ -74,6 +79,12 @@ export default function Sidebar(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
+    const [open2, setOpen2] = React.useState(false);
+
+    const handleClick = () => {
+      setOpen2(!open2);
+    };
+    
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -148,6 +159,23 @@ export default function Sidebar(props) {
               </ListItemIcon>
               <ListItemText primary='Compañias' />
             </ListItem>
+            <ListItemButton onClick={handleClick}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Psicologo" />
+              {open2 ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+              <Collapse in={open2} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }} onClick={() => router.push('/psy/listPsy')}>
+                    <ListItemIcon>
+                      <StarBorder />
+                    </ListItemIcon>
+                    <ListItemText primary="Ver Psicologos" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
         </List>
         <Divider />
         
