@@ -8,19 +8,23 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
+////////// Material Icons
+import MenuIcon from '@mui/icons-material/Menu';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import IconButton from '@mui/material/IconButton';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import GroupIcon from '@mui/icons-material/Group';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { useRouter } from 'next/router'
 import StoreIcon from '@mui/icons-material/Store';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+
+import { useRouter } from 'next/router'
 
 const drawerWidth = 240;
 
@@ -136,18 +140,28 @@ export default function Sidebar(props) {
               </ListItemIcon>
               <ListItemText primary='Usuarios' />
             </ListItem>
+
             <ListItem button key='Planes' onClick={() => router.push('/plans/register')}>
               <ListItemIcon>
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary='Planes' />
             </ListItem>
+
             <ListItem button key='Compañias' onClick={() => router.push('/company/register')}>
               <ListItemIcon>
                 <StoreIcon />
               </ListItemIcon>
               <ListItemText primary='Compañias' />
             </ListItem>
+
+            <ListItem button key='Psicologos' onClick={() => router.push('/psychologists/register')}>
+              <ListItemIcon>
+                <SupervisedUserCircleIcon />
+              </ListItemIcon>
+              <ListItemText primary='Psicologos' />
+            </ListItem>
+
         </List>
         <Divider />
         

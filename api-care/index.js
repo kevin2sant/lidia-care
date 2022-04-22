@@ -9,6 +9,8 @@ const app   = express();
 const user  =  require('./routes/userRoute')
 const company = require('./routes/companyRoute')
 const plans = require('./routes/plansRoute')
+const psy = require('./routes/psyRoute')
+
 //app.use(notFoundMiddleware)
 app.set('port', process.env.PORT || 3001);
 
@@ -27,6 +29,7 @@ app.use(cors())
 app.use('/care/user', user)
 app.use('/care/company', company)
 app.use('/care/plans', plans)
+app.use('/care/psy', psy)
 
 
 app.listen(app.get('port'), () => {
