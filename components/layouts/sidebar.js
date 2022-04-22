@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import GroupIcon from '@mui/icons-material/Group';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useRouter } from 'next/router'
 import StoreIcon from '@mui/icons-material/Store';
 
@@ -134,6 +135,12 @@ export default function Sidebar(props) {
                 <GroupIcon />
               </ListItemIcon>
               <ListItemText primary='Usuarios' />
+            </ListItem>
+            <ListItem button key='Planes' onClick={() => router.push('/plans/register')}>
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary='Planes' />
             </ListItem>
             <ListItem button key='Compañias' onClick={() => router.push('/company/register')}>
               <ListItemIcon>

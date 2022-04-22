@@ -2,19 +2,20 @@ const pool = require('./connectModel')
 
 const listPlans = async (req,res) => {
 	let query = {
-        text: ` SELECT a.*
+        text: ` SELECT a.*, b.v_plan_interval
 				FROM plans a
-                WHERE b_active = 'true'`
-
+				INNER JOIN plan_interval b on a.i_idplan_interval = b.i_idplan_interval
+                WHERE a.b_active = 'true';`,
+		values : []
     }
 
     return pool()
     .query(query)
-    .then(response => response)
-    .catch(error => {
+    .then(res => res.rows)
+    .catch(res => {
 		// console.log(error)
-    	res.status(500).send({
-   	      	message : 'Ocurrio un error'
+    	res.status(400).send({
+			error : res
 		})
 	})
 }
@@ -34,11 +35,11 @@ const deactivatePlan = async (req,res) => {
 
     return pool()
     .query(query)
-    .then(response => response)
-    .catch(error => {
+    .then(res => res)
+    .catch(res => {
 		// console.log(error)
-    	res.status(500).send({
-   	      	message : 'Ocurrio un error'
+    	res.status(400).send({
+   	      	message : res
 		})
 	})
 }
@@ -85,9 +86,9 @@ const addPlan = async (req,res) => {
 	}
 	return pool()
     .query(query)
-    .then(response => response
+    .then(res => res
     )
-    .catch(error => {
+    .catch(res => {
     	res.status(500).send({
 	      message : 'Ocurrio un error'
 	    })
@@ -113,19 +114,41 @@ const listPlansCompany = async (req,res) => {
 
     return pool()
     .query(query)
-    .then(response => response)
-    .catch(error => {
+    .then(res => res)
+    .catch(res => {
 		// console.log(error)
     	res.status(500).send({
-   	      	message : 'Ocurrio un error'
+   	      	message : res
 		})
 	})
 }
+
+
+const listPlansIntervals = async (req,res) => {
+	let query = {
+        text: ` SELECT a.*
+				FROM plan_interval a 
+                WHERE a.b_active = 'true';`,
+		values : []
+    }
+
+    return pool()
+    .query(query)
+    .then(res => res.rows)
+    .catch(res => {
+		// console.log(error)
+    	res.status(400).send({
+			error : res
+		})
+	})
+}
+
 
 
 module.exports = {
 	listPlans,
 	deactivatePlan,
 	addPlan,
-	listPlansCompany
+	listPlansCompany,
+	listPlansIntervals
 }

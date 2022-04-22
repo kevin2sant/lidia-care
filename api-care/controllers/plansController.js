@@ -4,7 +4,10 @@ const plansList = async (req,res) => {
 	try{
 	    let response = await PlansModel.listPlans(req.body,res)
 		res.json({
-			response
+			type : 'success',
+			data : {
+				response
+			}
 		}) 
 	}catch (err){
 	    res.status(500).send({
@@ -44,37 +47,20 @@ const planDeactivate =  async (req, res) => {
 
 const planAdd= async (req,res) => {
 	
-	const {v_plan,
-		   v_plan_description,
-		   i_beneficiaries,
-		   i_idplan_interval,
-		   i_price_per_beneficiary,
-		   i_internal_price_per_beneficiary,
-		   i_appointments,
-		   i_extra_appointments,
-		   n_discount_appointment,
-		   n_discount_particular
-	} = req.body
-	const planData = {v_plan : v_plan,
-					  v_plan_description : v_plan_description,
-					  i_beneficiaries : i_beneficiaries,
-					  i_idplan_interval : i_idplan_interval,
-					  i_price_per_beneficiary : i_price_per_beneficiary,
-					  i_internal_price_per_beneficiary : i_internal_price_per_beneficiary,
-					  i_appointments : i_appointments,
-					  i_extra_appointments : i_extra_appointments,
-					  n_discount_appointment : n_discount_appointment,
-					  n_discount_particular : n_discount_particular
-	}
 	
 	try{
-	    let response = await PlansModel.addPlan(planData,res)
+	    let response = await PlansModel.addPlan(req.body,res)
+		let plans = await PlansModel.listPlans(req.body,res)
+
 	    if (response.rowCount > 0){
 			res.status(200).json({
 				code : 13,
 				type : "success",
 				message : 'Se agrego el plan',	
-				idplan : response.rows[0].i_idplan		
+				data : {
+					id : response.rows[0].i_idplan,
+					plans : plans
+				}	
 			})
 	    }else{
 	    	return response
@@ -111,10 +97,48 @@ const plansCompanyList = async (req,res) => {
 	}
 }
 
+const plansIntervalList = async (req,res) => {
+	try{
+	    let response = await PlansModel.listPlansIntervals(req.body,res)
+		res.json({
+			type : 'success',
+			data : {
+				response
+			}
+		}) 
+	}catch (err){
+	    res.status(500).send({
+            code : 12,
+	      	message : 'Aplication error'
+	    })
+	}
+}
+
+const getDataRegister = async (req,res) => {
+	try{
+		let getActivePlans = await PlansModel.listPlans(req.body,res)
+	    let getActiveIntervals = await PlansModel.listPlansIntervals(req.body,res)
+		res.status(200).json({
+			data : {
+				plans : getActivePlans,
+				intervals : getActiveIntervals
+			},
+			message : 'success'
+		}) 
+	}catch (error){
+	    res.status(500).send({
+            code : 12,
+	      	message : 'Aplication error'
+	    })
+	}
+}
+
 
 module.exports = {
 	plansList,
 	planDeactivate,
 	planAdd,
-	plansCompanyList
+	plansCompanyList,
+	plansIntervalList,
+	getDataRegister
 }
