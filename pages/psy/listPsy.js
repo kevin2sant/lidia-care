@@ -79,7 +79,7 @@ const ListPsy = () => {
                 <Grid container spacing={2}>
                 {dataPsy ? 
                     dataPsy.map((value,item) => (
-                        <Grid item xs={6} sm={6} md={6} xl={6} key={item}>
+                        <Grid item xs={12} sm={12} md={6} xl={6} key={item}>
                             <div className="row" style={{"margin" : "0px 10px 0px 10px"}} onClick={() => handleClickOpen(value)}>    
                             <CardPsyHorizontal idPsy={value}/>
                             </div>
