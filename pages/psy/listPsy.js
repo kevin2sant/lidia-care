@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Body from '../../components/layouts/body';
 
+import CircularProgress from '@mui/material/CircularProgress';
 // required
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -19,6 +20,20 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 // 
+
+// components
+import CardPsyHorizontal from '../../components/psyco/cardPsyHorizontal';
+// 
+
+// Axios
+import clientAxios from '../../config/axios';
+// 
+
+// dispatch
+import { useDispatch } from 'react-redux'
+import { openAlert, closeAlert } from '../../actions/snackBarAction';
+// 
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -30,9 +45,27 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ListPsy = () => {
-    const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
+    const [dataPsy, setDataPsy] = useState(false)
+    const [loading, setLoading] = useState(false)
 
-    const handleClickOpen = () => {
+    useEffect(()=>{
+        clientAxios.get('/care/psy/getListPsyActive')
+        .then(res => {
+            setDataPsy(res.data.data.psy)
+            console.log(dataPsy)
+            setLoading(false)
+        })
+        .catch(res => {
+            dispatch(openAlert({type : 'error', message : 'HUBO UN ERROR AL EXTRAER LOS DATOS'}))
+        })
+    },[])
+
+    const [open, setOpen] = useState(false);
+    const [infoPsy, setInfoPsy] = useState(false)
+
+    const handleClickOpen = (data) => {
+        setInfoPsy(data)
         setOpen(true);
     };
 
@@ -44,53 +77,19 @@ const ListPsy = () => {
         <Body title="Ver Psicologos">
             <Box sx={{ flexGrow: 1, marginTop :'90px'}}>
                 <Grid container spacing={2}>
-                <div className="row" style={{"margin" : "0px 0px 0px 16px"}} onClick={handleClickOpen}>
-                    <div className="col-md-6">
-                        <div className="card mb-3" style={{"border" : "3px solid #1976d2","border-radius" : "5px", "box-shadow" : "0px 6px 11px #585858a1", "cursor" : "pointer"}}>
-                            <div className="row g-0">
-                                <div className="col-md-4">
-                                    <center>
-                                    <Image src="/profile.jpg" width={500} height={500} alt="Psy"/>
-                                    </center>
-                                </div>
-                                
-                                <div className="col-md-8">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Enrique Pineda</h5>
-                                        <p className="card-text">Me gusta mariconear 24/7</p>
-                                        <p className="card-text"><small className="text-muted">Ver mas ...</small></p>
-                                    </div>
-                                </div>
+                {dataPsy ? 
+                    dataPsy.map((value,item) => (
+                        <Grid item xs={6} sm={6} md={6} xl={6} key={item}>
+                            <div className="row" style={{"margin" : "0px 10px 0px 10px"}} onClick={() => handleClickOpen(value)}>    
+                            <CardPsyHorizontal idPsy={value}/>
                             </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card mb-3" style={{"border" : "3px solid #1976d2","border-radius" : "5px", "box-shadow" : "0px 6px 11px #585858a1", "cursor" : "pointer"}}>
-                            <div className="row g-0">
-                                <div className="col-md-4">
-                                    <center>
-                                    <Image src="/profile.jpg" width={500} height={500} alt="Psy"/>
-                                    </center>
-                                </div>
-                                
-                                <div className="col-md-8">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Franco Veliz de Pineda</h5>
-                                        <p className="card-text">Me gusta hacer cochinadas en la cama y que quede la caga.</p>
-                                        <p className="card-text"><small className="text-muted">Ver mas ...</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </Grid>
+                        </Grid>
+                     ))
+                : 
+                <center><CircularProgress /></center>
+                }
+                </Grid> 
             </Box>
-
-
-
-
-
             <Dialog
                 fullScreen
                 open={open}
@@ -108,12 +107,12 @@ const ListPsy = () => {
                     <CloseIcon />
                     </IconButton>
                     <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                    Enrique Pineda
+                    {infoPsy.v_names}
                     </Typography>
                     
                 </Toolbar>
                 </AppBar>
-                Hola mundo
+                {infoPsy.v_about_me}
             </Dialog>
         </Body>
     )

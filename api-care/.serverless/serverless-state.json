@@ -219,7 +219,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/my-express-api-lidia-care/dev/1648515308358-2022-03-29T00:55:08.358Z/my-express-api-lidia-care.zip"
+                "S3Key": "serverless/my-express-api-lidia-care/dev/1651452087118-2022-05-02T00:41:27.118Z/my-express-api-lidia-care.zip"
               },
               "Handler": "s_api.handler",
               "Runtime": "nodejs14.x",
@@ -237,14 +237,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionCep2wx0uBDjahp9lNYwYLhbs0XYdetSwhSZIbkTV4": {
+          "ApiLambdaVersion2PjQuLTFOJQFOk293dlduZLbEZBewKWqSY4icvXVni4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "6ttO7fZP/03Tm1A2DMA+8SSSz4T2Lgzp0gI6rf9CWag="
+              "CodeSha256": "ly1ARyo/UqT9/B9zMuNMeAU220/oeaZ6/GS7QSuFr1s="
             }
           },
           "HttpApi": {
@@ -399,7 +399,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionCep2wx0uBDjahp9lNYwYLhbs0XYdetSwhSZIbkTV4"
+              "Ref": "ApiLambdaVersion2PjQuLTFOJQFOk293dlduZLbEZBewKWqSY4icvXVni4"
             },
             "Export": {
               "Name": "sls-my-express-api-lidia-care-dev-ApiLambdaFunctionQualifiedArn"
@@ -546,7 +546,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionCep2wx0uBDjahp9lNYwYLhbs0XYdetSwhSZIbkTV4"
+        "versionLogicalId": "ApiLambdaVersion2PjQuLTFOJQFOk293dlduZLbEZBewKWqSY4icvXVni4"
       }
     },
     "configValidationMode": "warn",
@@ -569,10 +569,10 @@
     "isDashboardAppPreconfigured": true,
     "orgUid": "1a466789-5558-4273-a276-f7565c3066f8",
     "appUid": "R31NnNjyDLZTptbCNB",
-    "artifact": "C:\\Users\\kevin\\Desktop\\lidia-care\\api-care\\.serverless\\my-express-api-lidia-care.zip"
+    "artifact": "C:\\Users\\kevin\\Desktop\\lidia-care2\\lidia-care\\api-care\\.serverless\\my-express-api-lidia-care.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/my-express-api-lidia-care/dev/1648515308358-2022-03-29T00:55:08.358Z",
+    "artifactDirectoryName": "serverless/my-express-api-lidia-care/dev/1651452087118-2022-05-02T00:41:27.118Z",
     "artifact": "my-express-api-lidia-care.zip"
   }
 }

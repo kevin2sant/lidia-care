@@ -5,10 +5,11 @@ const cors        = require('cors')
 const path        = require('path')
 const bodyParser  = require('body-parser')
 
-const app   = express();
-const user  =  require('./routes/userRoute')
-const company  =  require('./routes/companyRoute')
-
+const app       = express();
+const user      =  require('./routes/userRoute')
+const company   =  require('./routes/companyRoute')
+const plans     = require('./routes/plansRoute')
+const psy       = require('./routes/psyRoute')
 
 
 app.use(express.json());
@@ -19,7 +20,8 @@ app.use(cors())
 // url
 app.use('/care/user', user)
 app.use('/care/company', company)
-
+app.use('/care/plans', plans)
+app.use('/care/psy', psy)
 
 
 
