@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react'
 import Body from '../../components/layouts/body';
 
 import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
+
+// icons
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import SchoolIcon from '@mui/icons-material/School';
+import ImageIcon from '@mui/icons-material/Image';
+//
+
 // required
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -20,6 +28,11 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 // 
+
+// imageList
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+//
 
 // components
 import CardPsyHorizontal from '../../components/psyco/cardPsyHorizontal';
@@ -66,6 +79,7 @@ const ListPsy = () => {
 
     const handleClickOpen = (data) => {
         setInfoPsy(data)
+        console.log(data)
         setOpen(true);
     };
 
@@ -90,6 +104,9 @@ const ListPsy = () => {
                 }
                 </Grid> 
             </Box>
+
+
+
             <Dialog
                 fullScreen
                 open={open}
@@ -107,12 +124,109 @@ const ListPsy = () => {
                     <CloseIcon />
                     </IconButton>
                     <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                    {infoPsy.v_names}
+                        {infoPsy.v_names} {infoPsy.v_surnames}
                     </Typography>
                     
                 </Toolbar>
                 </AppBar>
-                {infoPsy.v_about_me}
+                <div className="container">
+                    <div className="offset-md-3 col-md-6">
+                        <center>
+                            <Image src={infoPsy.v_image_profile} width={500} height={500} alt="Psy"/>
+                        </center>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-12">
+                            <p className="text-justify" style={{"textAlign" : "justify"}}>{infoPsy.v_about_me}</p>
+                        </div> 
+
+                        <Divider />
+                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"margin" : "10px"}}>
+                            <h2> <AddBoxIcon/> Especialidades</h2>
+                            <div style={{"paddingLeft" : "20px"}}>
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality1} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality2} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality3} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality4} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality5} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality6} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality7} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality8} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality9} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_specialities.speciality10} </li>)}
+                            </div>
+                        </div>  
+
+                        <Divider />
+                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"margin" : "10px"}}>
+                            <h2><SchoolIcon/> Educación</h2>
+                            <div style={{"paddingLeft" : "20px"}}>
+                            {infoPsy && ( <li> {infoPsy.j_education.education1} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education2} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education3} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education4} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education5} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education6} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education7} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education8} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education9} </li>)}
+                            {infoPsy && ( <li> {infoPsy.j_education.education10} </li>)}
+                            </div>
+                        </div> 
+
+                        <Divider />
+                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"margin" : "10px"}}>
+                            <h2><ImageIcon/> Galeria</h2>
+                            <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
+                            {infoPsy &&(
+                                <ImageList variant="masonry" cols={3} gap={8}>
+                                    {infoPsy.j_images.image1 && (
+                                        <ImageListItem key="image1">
+                                        <img
+                                            src={`${infoPsy.j_images.image1}?w=248&fit=crop&auto=format`}
+                                            srcSet={`${infoPsy.j_images.image1}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                            alt="image1"
+                                            loading="lazy"
+                                        />
+                                        </ImageListItem>
+                                    )}
+                                    {infoPsy.j_images.image2 && (
+                                        <ImageListItem key="image2">
+                                        <img
+                                            src={`${infoPsy.j_images.image2}?w=248&fit=crop&auto=format`}
+                                            srcSet={`${infoPsy.j_images.image2}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                            alt="image2"
+                                            loading="lazy"
+                                        />
+                                        </ImageListItem>
+                                    )}
+                                    {infoPsy.j_images.image3 && (
+                                        <ImageListItem key="image3">
+                                        <img
+                                            src={`${infoPsy.j_images.image3}?w=248&fit=crop&auto=format`}
+                                            srcSet={`${infoPsy.j_images.image3}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                            alt="image3"
+                                            loading="lazy"
+                                        />
+                                        </ImageListItem>
+                                    )}
+                                    {infoPsy.j_images.image4 && (
+                                        <ImageListItem key="image4">
+                                        <img
+                                            src={`${infoPsy.j_images.image4}?w=248&fit=crop&auto=format`}
+                                            srcSet={`${infoPsy.j_images.image4}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                            alt="image4"
+                                            loading="lazy"
+                                        />
+                                        </ImageListItem>
+                                    )}
+                                </ImageList>
+                            )}
+                            </Box>
+                        </div> 
+                    </div>
+                </div>
             </Dialog>
         </Body>
     )
