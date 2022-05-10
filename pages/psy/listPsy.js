@@ -142,7 +142,7 @@ const ListPsy = () => {
                         </div> 
 
                         <Divider />
-                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"margin" : "10px"}}>
+                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"padding" : "10px"}}>
                             <h2> <AddBoxIcon/> Especialidades</h2>
                             <div style={{"paddingLeft" : "20px"}}>
                             {infoPsy && ( <li> {infoPsy.j_specialities.speciality1} </li>)}
@@ -159,7 +159,7 @@ const ListPsy = () => {
                         </div>  
 
                         <Divider />
-                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"margin" : "10px"}}>
+                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"padding" : "10px"}}>
                             <h2><SchoolIcon/> Educación</h2>
                             <div style={{"paddingLeft" : "20px"}}>
                             {infoPsy && ( <li> {infoPsy.j_education.education1} </li>)}
@@ -176,11 +176,10 @@ const ListPsy = () => {
                         </div> 
 
                         <Divider />
-                        <div className="offset-md-1 offset-lg-1 col-md-11" style={{"margin" : "10px"}}>
+                        <div className="col-md-12" style={{"padding" : "10px"}}>
                             <h2><ImageIcon/> Galeria</h2>
-                            <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
                             {infoPsy &&(
-                                <ImageList variant="masonry" cols={3} gap={8}>
+                                <ImageList variant="masonry" cols={2} gap={8}>
                                     {infoPsy.j_images.image1 && (
                                         <ImageListItem key="image1">
                                         <img
@@ -223,7 +222,6 @@ const ListPsy = () => {
                                     )}
                                 </ImageList>
                             )}
-                            </Box>
                         </div> 
                     </div>
                 </div>
