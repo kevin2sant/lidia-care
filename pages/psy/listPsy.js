@@ -4,6 +4,7 @@ import Body from '../../components/layouts/body';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 
+
 // icons
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import SchoolIcon from '@mui/icons-material/School';
@@ -47,20 +48,16 @@ import { useDispatch } from 'react-redux'
 import { openAlert, closeAlert } from '../../actions/snackBarAction';
 // 
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1)
-}));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ListPsy = () => {
+const ListPsy = props => {
     const dispatch = useDispatch();
     const [dataPsy, setDataPsy] = useState(false)
     const [loading, setLoading] = useState(false)
+
 
     useEffect(()=>{
         clientAxios.get('/care/psy/getListPsyActive')
@@ -222,6 +219,7 @@ const ListPsy = () => {
                                     )}
                                 </ImageList>
                             )}
+                            
                         </div> 
                     </div>
                 </div>
